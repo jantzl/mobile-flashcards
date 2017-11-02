@@ -5,7 +5,7 @@ import DeckCard from './DeckCard'
 import { fetchDeckResults } from '../utils/api'
 import { receiveDecks } from '../actions'
 
-class DecksView extends Component {
+class DeckListView extends Component {
 	componentDidMount() {
 		const { dispatch } = this.props
 
@@ -33,4 +33,4 @@ function mapStateToProps (decks) {
 	}
 }
 
-export default connect(mapStateToProps)(DecksView)
+export default connect(mapStateToProps)(DeckListView)

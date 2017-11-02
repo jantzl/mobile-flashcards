@@ -4,13 +4,13 @@ import { TabNavigator, StackNavigator } from 'react-navigation'
 import { Constants } from 'expo' 
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import DecksView from './components/DecksView'
+import DeckListView from './components/DeckListView'
 import AddDeck from './components/AddDeck'
 import reducer from './reducers'
 
 const Tabs = TabNavigator({
-  DecksView : {
-    screen: DecksView,
+  DeckListView : {
+    screen: DeckListView,
     navigationOptions: {
       tabBarLabel: 'My Decks',
       tabBarIcon: ({tintColor}) =>  <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
@@ -38,7 +38,21 @@ function FlashCardStatusBar ({...props}) {
 	)
 }
 
+/*
+const MainNavigator = StackNavigator({
+	Home: {
+		screen: Tabs, 
+	}, 
+
+})
+*/
+
 export default class App extends React.Component {
+	/* add notification here 
+	componentDidMount () {
+		setLocalNotification()
+	}
+	 * */
   render() {
     return (
 			<Provider store={createStore(reducer)}>
