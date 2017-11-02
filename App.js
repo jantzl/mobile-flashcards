@@ -1,9 +1,12 @@
-import React from 'react';
-import { View, StatusBar } from 'react-native';
+import React from 'react'
+import { View, StatusBar } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import { Constants } from 'expo' 
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 import DecksView from './components/DecksView'
 import AddDeck from './components/AddDeck'
+import reducer from './reducers'
 
 const Tabs = TabNavigator({
   DecksView : {
@@ -38,10 +41,12 @@ function FlashCardStatusBar ({...props}) {
 export default class App extends React.Component {
   render() {
     return (
-      <View style={{flex: 1}}>
-				<FlashCardStatusBar />
-				<Tabs />
-      </View>
-    );
+			<Provider store={createStore(reducer)}>
+				<View style={{flex: 1}}>
+					<FlashCardStatusBar />
+					<Tabs />
+				</View>
+			</Provider>
+    )
   }
 }
