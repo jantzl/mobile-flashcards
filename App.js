@@ -1,6 +1,7 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, StatusBar } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation'
+import { Constants } from 'expo' 
 import DecksView from './components/DecksView'
 import AddDeck from './components/AddDeck'
 
@@ -26,10 +27,19 @@ const Tabs = TabNavigator({
   },
 })
 
+function FlashCardStatusBar ({...props}) {
+	return (
+		<View style={{height: Constants.statusBarHeight}}>
+			<StatusBar translucent {...props} />
+		</View>
+	)
+}
+
 export default class App extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
+				<FlashCardStatusBar />
 				<Tabs />
       </View>
     );
