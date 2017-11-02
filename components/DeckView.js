@@ -1,31 +1,85 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, Button, StyleSheet } from 'react-native'
+import FlashButton from './FlashButton'
+import { white, black, gray } from '../utils/colors'
 
-//FIXME - major fix me
 class DeckView extends Component {
-	/*
-	componentDidMount() {
-		const { dispatch } = this.props
+	static navigationOptions = ({ navigation }) => {
+		const { deckId } = navigation.state.params
 
-		fetchDeckResults()
-		.then((decks) => dispatch(receiveDecks(decks)))
-
+		return {
+			title: deckId
+		}
 	}
-	*/
+
+	addCard = () => {
+		console.log('add card')
+	}
+
+	startQuiz = () => {
+		console.log('start quiz')
+	}
+
 	render () {
-		//const { decks } = this.props
+		const { deck } = this.props
 
 		return (
-			<View>
-				<Text> Deck Place Holder </Text>
+			<View style={styles.container}>
+				<View style={styles.deckInfoContainer}>
+					<Text style={styles.deckName}>{deck.title}</Text>
+					<Text style={styles.deckSize}>{deck.questions.length} cards</Text>
+				</View>
+				<View style={styles.buttonContainer}>
+					<FlashButton 
+						onPress={this.addCard} 
+						style={{backgroundColor: white, borderColor: black}} 
+						textStyle={{color: black}}
+					> 
+						FIXME Add Card
+					</FlashButton>
+					<FlashButton onPress={this.startQuiz}
+						style={{backgroundColor: black, borderColor: black}} 
+						textStyle={{color: white}}
+					> 
+						FIXME Start Quiz
+					</FlashButton>
+				</View>
 			</View>
 		)
 	}
 }
 
-function mapStateToProps () {
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+	}, 
+	deckInfoContainer: {
+		flex:1, 
+		justifyContent: 'center',
+	},
+	deckName: {
+		textAlign: 'center', 
+		fontSize: 40,
+	},
+	deckSize: {
+		textAlign: 'center', 
+		fontSize: 22, 
+		color: gray,
+	},
+	buttonContainer: {
+		justifyContent: 'flex-end', 
+		alignItems: 'center', 
+		paddingBottom: 40,
+	},
+})
+
+function mapStateToProps (state, { navigation }) {
+	const { deckId } = navigation.state.params
+
 	return {
+		deckId, 
+		deck: state[deckId]
 	}
 }
 

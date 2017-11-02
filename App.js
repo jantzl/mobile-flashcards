@@ -8,7 +8,7 @@ import DeckListView from './components/DeckListView'
 import DeckView from './components/DeckView'
 import AddDeck from './components/AddDeck'
 import reducer from './reducers'
-import { red } from './utils/colors'
+import { white, black } from './utils/colors'
 
 const Tabs = TabNavigator({
   DeckListView : {
@@ -47,7 +47,10 @@ const MainNavigator = StackNavigator({
 	DeckView: {
 		screen: DeckView, 
 		navigationOptions: {
-			headerTintColor: red,
+			headerTintColor: white,
+			headerStyle: {
+				backgroundColor: black,
+			}
 		},
 	},
 })

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
-import { gray } from '../utils/colors'
+import { gray, black } from '../utils/colors'
 
 
 export default class DeckCard extends Component {
@@ -22,5 +22,7 @@ const styles = StyleSheet.create({
 	deck: {
 		marginTop: 10,
 		padding: 40,
+		borderBottomWidth: 1, 
+		borderColor: black,
 	}
 })
