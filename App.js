@@ -5,8 +5,10 @@ import { Constants } from 'expo'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import DeckListView from './components/DeckListView'
+import DeckView from './components/DeckView'
 import AddDeck from './components/AddDeck'
 import reducer from './reducers'
+import { red } from './utils/colors'
 
 const Tabs = TabNavigator({
   DeckListView : {
@@ -38,16 +40,20 @@ function FlashCardStatusBar ({...props}) {
 	)
 }
 
-/*
 const MainNavigator = StackNavigator({
 	Home: {
 		screen: Tabs, 
 	}, 
-
+	DeckView: {
+		screen: DeckView, 
+		navigationOptions: {
+			headerTintColor: red,
+		},
+	},
 })
-*/
 
 export default class App extends React.Component {
+	//FIXME - notifications
 	/* add notification here 
 	componentDidMount () {
 		setLocalNotification()
@@ -58,7 +64,7 @@ export default class App extends React.Component {
 			<Provider store={createStore(reducer)}>
 				<View style={{flex: 1}}>
 					<FlashCardStatusBar />
-					<Tabs />
+					<MainNavigator />
 				</View>
 			</Provider>
     )

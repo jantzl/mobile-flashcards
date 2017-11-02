@@ -14,13 +14,13 @@ class DeckListView extends Component {
 
 	}
 	render () {
-		const { decks } = this.props
+		const { decks, navigation } = this.props
 
 		return (
 			<View>
 				{Object.keys(decks).map((key) =>{
 					const value = decks[key]
-					return (<DeckCard key={key} name={key} num_cards={value.questions.length} />)
+					return (<DeckCard key={key} name={key} num_cards={value.questions.length} navigation={navigation} />)
 				})}
 			</View>
 		)
