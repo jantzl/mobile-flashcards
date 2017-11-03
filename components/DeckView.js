@@ -29,14 +29,14 @@ class DeckView extends Component {
 						style={{backgroundColor: white, borderColor: black}} 
 						textStyle={{color: black}}
 					> 
-						FIXME Add Card
+						Add Card
 					</FlashButton>
 					<FlashButton 
 						onPress={() => navigation.navigate('QuizView', { deckId: deck.title })}
 						style={{backgroundColor: black, borderColor: black}} 
 						textStyle={{color: white}}
 					> 
-						FIXME Start Quiz
+						Start Quiz
 					</FlashButton>
 				</View>
 			</View>

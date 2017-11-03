@@ -2,8 +2,8 @@ import React from 'react'
 import { AsyncStorage } from 'react-native'
 import { Notifications, Permissions } from 'expo'
 
-// ---- DECK MANAGEMENT FUNCTIONS ----
-export function getDecks() {
+// ---- DECK INIT FUNCTION ----
+export function getInitDecks() {
 	return {
 		React: {
 			title: 'React',
@@ -29,16 +29,6 @@ export function getDecks() {
 		}
 	}
 }
-
-export function getDeck(id) {
-}
-
-export function saveDeckTitle(title) {
-}
-
-export function addCardToDeck(title, card) {
-}
-
 
 // ---- NOTIFICATION FUNCTIONS ----
 

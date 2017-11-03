@@ -1,25 +1,28 @@
 import { AsyncStorage } from 'react-native'
 import { formatDeckResults, DECK_STORAGE_KEY }  from './_decks'
 
-export function fetchDeckResults () {
+export function getDecks() {
   return AsyncStorage.getItem(DECK_STORAGE_KEY)
 	.then(formatDeckResults)
 }
 
-// FIXME - review/test this
-export function submitEntry({ entry, key }) {
+export function getDeck(title) {
+  return AsyncStorage.getItem(DECK_STORAGE_KEY)
+	.then(formatDeckResults)
+}
+
+export function saveDeckTitle(title) {
+	//FIXME test
   return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
-    [key]: entry,
+    [title]: { title }, 
   }))
 }
 
-// FIXME - review/test this
-export function removeEntry(key) {
-  return AsyncStorage.getItem(DECK_STORAGE_KEY)
-  .then((results) => {
-    const data = JSON.parse(results)
-    data[key] = undefined
-    delete data[key]
-    AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data))
-  })
+export function addCardToDeck(title, card) {
+	//FIXME test
+  return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
+    [title]: {
+			questions: [ card ], 
+		}
+  }))
 }

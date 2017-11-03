@@ -1,10 +1,10 @@
 import { AsyncStorage } from 'react-native'
-import { getDecks } from './helpers'
+import { getInitDecks } from './helpers'
 
 export const DECK_STORAGE_KEY = 'LaurensFlashCards:cards'
 
 function setDummyData () {
-  let dummyData = getDecks()
+  let dummyData = getInitDecks()
 
   AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(dummyData))
 

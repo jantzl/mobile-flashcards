@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, Text, StyleSheet } from 'react-native'
 import DeckCard from './DeckCard'
-import { fetchDeckResults } from '../utils/api'
+import { getDecks } from '../utils/api'
 import { receiveDecks } from '../actions'
 
 class DeckListView extends Component {
 	componentDidMount() {
 		const { dispatch } = this.props
 
-		fetchDeckResults()
+		getDecks()
 		.then((decks) => dispatch(receiveDecks(decks)))
 
 	}
