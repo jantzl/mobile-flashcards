@@ -1,31 +1,38 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { View, Text, TextInput } from 'react-native'
 import FlashButton from './FlashButton'
 import { white, black } from '../utils/colors'
 import { styles } from '../utils/styles'
 
-export default class AddDeck extends Component {
+class AddCard extends Component {
 	state = {
-		text: null,
+		question: null,
+		answer: null,
 	}
 
+	//FIXME
   submit = () => {
-    console.log('add deck')
+    console.log('add card')
   }
 
   render () {
     return (
       <View style={styles.container}> 
 				<View style={styles.textContainer}>
-					<Text style={styles.header}>What is the title of your new deck?</Text>
-				</View>
-				<View style={styles.buttonContainer}>
 					<TextInput 
-						placeholder='Deck Title'
+						placeholder='Question'
 						style={styles.input}
 						maxLength={40}
-						value={this.state.text} 
-						onChangeText={(text) => this.setState({text})}
+						value={this.state.question} 
+						onChangeText={(question) => this.setState({question})}
+					/>
+					<TextInput 
+						placeholder='Answer'
+						style={styles.input}
+						maxLength={40}
+						value={this.state.answer} 
+						onChangeText={(answer) => this.setState({answer})}
 					/>
           <FlashButton
             onPress={this.submit}
@@ -39,3 +46,14 @@ export default class AddDeck extends Component {
     )
   }
 }
+
+function mapStateToProps (state, { navigation }) {
+  const { deckId } = navigation.state.params
+
+  return {
+    deckId,
+    deck: state[deckId]
+  }
+}
+
+export default connect(mapStateToProps)(AddCard)

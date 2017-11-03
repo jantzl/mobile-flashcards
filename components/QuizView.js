@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, Text, Button, StyleSheet } from 'react-native'
 import FlashButton from './FlashButton'
-import { white, black } from '../utils/colors'
+import { green, red, white } from '../utils/colors'
 import { styles } from '../utils/styles'
 
-class DeckView extends Component {
+class QuizView extends Component {
 	static navigationOptions = ({ navigation }) => {
 		const { deckId } = navigation.state.params
 
@@ -14,29 +14,36 @@ class DeckView extends Component {
 		}
 	}
 
+	correct = () => {
+		console.log('correct')
+	}
+
+	incorrect = () => {
+		console.log('incorrect')
+	}
+
 	render () {
-		const { deck, navigation } = this.props
+		const { deck } = this.props
 
 		return (
 			<View style={styles.container}>
 				<View style={styles.textContainer}>
-					<Text style={styles.header}>{deck.title}</Text>
-					<Text style={styles.subheader}>{deck.questions.length} cards</Text>
+					<Text style={styles.header}>FIXME Question</Text>
+					<Text style={styles.subheader}>FIXME Answer</Text>
 				</View>
 				<View style={styles.buttonContainer}>
 					<FlashButton 
-						onPress={() => navigation.navigate('AddCard', { deckId: deck.title })}
-						style={{backgroundColor: white, borderColor: black}} 
-						textStyle={{color: black}}
-					> 
-						FIXME Add Card
-					</FlashButton>
-					<FlashButton 
-						onPress={() => navigation.navigate('QuizView', { deckId: deck.title })}
-						style={{backgroundColor: black, borderColor: black}} 
+						onPress={this.addCard} 
+						style={{backgroundColor: green, borderColor: green}} 
 						textStyle={{color: white}}
 					> 
-						FIXME Start Quiz
+						FIXME Correct
+					</FlashButton>
+					<FlashButton onPress={this.startQuiz}
+						style={{backgroundColor: red, borderColor: red}} 
+						textStyle={{color: white}}
+					> 
+						FIXME Incorrect
 					</FlashButton>
 				</View>
 			</View>
@@ -45,6 +52,7 @@ class DeckView extends Component {
 }
 
 function mapStateToProps (state, { navigation }) {
+	//FIXME - review this
 	const { deckId } = navigation.state.params
 
 	return {
@@ -53,4 +61,4 @@ function mapStateToProps (state, { navigation }) {
 	}
 }
 
-export default connect(mapStateToProps)(DeckView)
+export default connect(mapStateToProps)(QuizView)
