@@ -18,8 +18,6 @@ export default class AddDeck extends Component {
       <View style={styles.container}> 
 				<View style={styles.textContainer}>
 					<Text style={styles.header}>What is the title of your new deck?</Text>
-				</View>
-				<View style={styles.buttonContainer}>
 					<TextInput 
 						placeholder='Deck Title'
 						style={styles.input}

@@ -8,6 +8,13 @@ export const styles = StyleSheet.create({
 	textContainer: {
     flex:1,
     justifyContent: 'center',
+    alignItems: 'center',
+		margin: 5,
+  },
+	addCardContainer: {
+    flex:1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
 		margin: 5,
   },
   header: {
@@ -30,6 +37,7 @@ export const styles = StyleSheet.create({
 		borderColor: black, 
 		borderWidth:1, 
 		borderRadius: 4, 
+		marginTop: 40,
 		paddingLeft: 10, 
 		paddingRight: 10, 
 		fontSize: 22,

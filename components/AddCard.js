@@ -19,7 +19,7 @@ class AddCard extends Component {
   render () {
     return (
       <View style={styles.container}> 
-				<View style={styles.textContainer}>
+				<View style={styles.addCardContainer}>
 					<TextInput 
 						placeholder='Question'
 						style={styles.input}
