@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, Text, Button, StyleSheet } from 'react-native'
 import FlashButton from './FlashButton'
-import { white, black, gray } from '../utils/colors'
+import { white, black } from '../utils/colors'
+import { styles } from '../utils/styles'
 
 class DeckView extends Component {
 	static navigationOptions = ({ navigation }) => {
@@ -26,9 +27,9 @@ class DeckView extends Component {
 
 		return (
 			<View style={styles.container}>
-				<View style={styles.deckInfoContainer}>
-					<Text style={styles.deckName}>{deck.title}</Text>
-					<Text style={styles.deckSize}>{deck.questions.length} cards</Text>
+				<View style={styles.textContainer}>
+					<Text style={styles.header}>{deck.title}</Text>
+					<Text style={styles.subheader}>{deck.questions.length} cards</Text>
 				</View>
 				<View style={styles.buttonContainer}>
 					<FlashButton 
@@ -49,30 +50,6 @@ class DeckView extends Component {
 		)
 	}
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	}, 
-	deckInfoContainer: {
-		flex:1, 
-		justifyContent: 'center',
-	},
-	deckName: {
-		textAlign: 'center', 
-		fontSize: 40,
-	},
-	deckSize: {
-		textAlign: 'center', 
-		fontSize: 22, 
-		color: gray,
-	},
-	buttonContainer: {
-		justifyContent: 'flex-end', 
-		alignItems: 'center', 
-		paddingBottom: 40,
-	},
-})
 
 function mapStateToProps (state, { navigation }) {
 	const { deckId } = navigation.state.params

@@ -1,12 +1,40 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
-
+import { View, Text, TextInput } from 'react-native'
+import FlashButton from './FlashButton'
+import { white, black } from '../utils/colors'
+import { styles } from '../utils/styles'
 
 export default class AddDeck extends Component {
+	state = {
+		text: null,
+	}
+
+  addDeck = () => {
+    console.log('add deck')
+  }
+
   render () {
     return (
-      <View> 
-				<Text>Add deck form goes here</Text>
+      <View style={styles.container}> 
+				<View style={styles.textContainer}>
+					<Text style={styles.header}>What is the title of your new deck?</Text>
+				</View>
+				<View style={styles.buttonContainer}>
+					<TextInput 
+						placeholder='Deck Title'
+						style={styles.input}
+						maxLength={40}
+						value={this.state.text} 
+						onChangeText={(text) => this.setState({text})}
+					/>
+          <FlashButton
+            onPress={this.addDeck}
+            style={{backgroundColor: black, borderColor: black, marginTop: 40}}
+            textStyle={{color: white}}
+          >
+            FIXME Submit
+          </FlashButton>
+				</View>
       </View>
     )
   }

@@ -15,14 +15,12 @@ const Tabs = TabNavigator({
     screen: DeckListView,
     navigationOptions: {
       tabBarLabel: 'My Decks',
-      tabBarIcon: ({tintColor}) =>  <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
     },
   },
   AddDeck: {
     screen: AddDeck,
     navigationOptions: {
       tabBarLabel: 'Add Deck',
-      tabBarIcon: ({tintColor}) => <FontAwesome name='plus-square' size={30} color={tintColor} />
     },
   }
 },
