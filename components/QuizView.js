@@ -50,6 +50,9 @@ class QuizView extends Component {
 
 		return (
 			<View style={styles.container}>
+				<View style={styles.progress}>
+					<Text style={{fontSize: 20}}>{position+1}/{numQuestions}</Text>
+				</View>
 				<View style={styles.textContainer}>
 					<Text style={styles.header}>{question.question}</Text>
 					<TouchableOpacity>
