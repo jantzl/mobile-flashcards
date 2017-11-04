@@ -40,6 +40,12 @@ class QuizView extends Component {
 	}
 
 	correct = (increase) => {
+		// if the back of the card is showing when you want to transition, 
+		// hide the face, then flip, then transition
+		if (this.value >= 90) {
+			this.state.backOpacity.setValue(0)
+			this.flip()
+		}
 		this.setState(() => ({
 			position: this.state.position + 1, 
 			score: this.state.score + increase,
@@ -53,6 +59,15 @@ class QuizView extends Component {
 		// version I'm testing on. I see it in the spec and posts about using it, 
 		// but I found that it did not work properly on my system. 
 		// So I addressed it by animating Opacity transition
+		const timeChange = 1000
+		const toFront = {
+			toValue: 1, 
+			duration: timeChange,
+		}
+		const toBack = {
+			toValue: 0, 
+			duration: timeChange,
+		}
 		if (this.value >= 90) {
 			Animated.parallel([
 				Animated.spring(this.animatedValue, {
@@ -60,14 +75,8 @@ class QuizView extends Component {
 					friction: 6, 
 					tension: 20,
 				}),
-				Animated.timing(this.state.frontOpacity, {
-					toValue: 1, 
-					duration: 500,
-				}),
-				Animated.timing(this.state.backOpacity, {
-					toValue: 0, 
-					duration: 500,
-				}),
+				Animated.timing(this.state.frontOpacity, toFront),
+				Animated.timing(this.state.backOpacity, toBack),
 			]).start()
 		} else {
 			Animated.parallel([
@@ -76,14 +85,8 @@ class QuizView extends Component {
 					friction: 6, 
 					tension: 20,
 				}),
-				Animated.timing(this.state.frontOpacity, {
-					toValue: 0, 
-					duration: 500,
-				}),
-				Animated.timing(this.state.backOpacity, {
-					toValue: 1, 
-					duration: 500,
-				}),
+				Animated.timing(this.state.frontOpacity, toBack),
+				Animated.timing(this.state.backOpacity, toFront),
 			]).start()
 		}
 	}
