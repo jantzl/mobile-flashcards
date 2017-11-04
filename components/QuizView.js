@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, Button, StyleSheet, TouchableOpacity, Animated } from 'react-native'
 import FlashButton from './FlashButton'
 import { green, red, white } from '../utils/colors'
 import { styles } from '../utils/styles'
@@ -19,6 +19,26 @@ class QuizView extends Component {
 		}
 	}
 
+	componentWillMount() {
+		this.animatedValue = new Animated.Value(0)
+		this.value = 0 
+		this.animatedValue.addListener(({ value }) => {
+			this.value = value
+		})
+		this.setState(() => ({
+			frontOpacity: new Animated.Value(1),
+			backOpacity: new Animated.Value(0),
+		}))
+		this.frontInterpolate = this.animatedValue.interpolate({
+			inputRange: [0, 180], 
+			outputRange: ['0deg', '180deg'],
+		})
+		this.backInterpolate = this.animatedValue.interpolate({
+			inputRange: [0, 180], 
+			outputRange: ['180deg', '360deg'],
+		})
+	}
+
 	correct = (increase) => {
 		this.setState(() => ({
 			position: this.state.position + 1, 
@@ -26,12 +46,64 @@ class QuizView extends Component {
 		}))
 	}
 
+	flip() {
+		// NOTE: This looks like an overly complicated animation, but it is
+		// because the system I have tested on is Android and the backfaceVisbility 
+		// property does not seem to be well supported on Android, or at least the
+		// version I'm testing on. I see it in the spec and posts about using it, 
+		// but I found that it did not work properly on my system. 
+		// So I addressed it by animating Opacity transition
+		if (this.value >= 90) {
+			Animated.parallel([
+				Animated.spring(this.animatedValue, {
+					toValue: 0, 
+					friction: 6, 
+					tension: 20,
+				}),
+				Animated.timing(this.state.frontOpacity, {
+					toValue: 1, 
+					duration: 500,
+				}),
+				Animated.timing(this.state.backOpacity, {
+					toValue: 0, 
+					duration: 500,
+				}),
+			]).start()
+		} else {
+			Animated.parallel([
+				Animated.spring(this.animatedValue, {
+					toValue: 180, 
+					friction: 6, 
+					tension: 20,
+				}),
+				Animated.timing(this.state.frontOpacity, {
+					toValue: 0, 
+					duration: 500,
+				}),
+				Animated.timing(this.state.backOpacity, {
+					toValue: 1, 
+					duration: 500,
+				}),
+			]).start()
+		}
+	}
+
 	render () {
 		const { deck } = this.props
-		const { position, score } = this.state
+		const { position, score, frontOpacity, backOpacity } = this.state
 		const numQuestions = deck.questions.length
-		console.log('num questions ' + numQuestions)
-		console.log('position ' + position)
+		const frontAnimatedStyle = {
+			transform: [
+				{ rotateY: this.frontInterpolate },
+				{ perspective: 1000 }
+			]
+		}
+		const backAnimatedStyle = {
+			transform: [
+				{ rotateY: this.backInterpolate },
+				{ perspective: 1000 }
+			]
+		}
 
 		if (position >= numQuestions) {
 			const percentCorrect = Math.round((score / numQuestions)*100)
@@ -50,14 +122,22 @@ class QuizView extends Component {
 
 		return (
 			<View style={styles.container}>
-				<View style={styles.progress}>
+				<View> 
 					<Text style={{fontSize: 20}}>{position+1}/{numQuestions}</Text>
 				</View>
 				<View style={styles.textContainer}>
-					<Text style={styles.header}>{question.question}</Text>
-					<TouchableOpacity>
-						<Text style={styles.subheader}>FIXME Answer</Text>
-					</TouchableOpacity>
+					<Animated.View style={[styles.flipCard, frontAnimatedStyle, { opacity: frontOpacity}]}>
+						<Text style={styles.header}>{question.question}</Text>
+						<TouchableOpacity onPress={() => this.flip()}>
+							<Text style={styles.subheader}>Answer</Text>
+						</TouchableOpacity>
+					</Animated.View>
+					<Animated.View style={[styles.flipCard, backAnimatedStyle, styles.flipCardBack, {opacity: backOpacity}]}>
+						<Text style={styles.header}>{question.answer}</Text>
+						<TouchableOpacity onPress={() => this.flip()}>
+							<Text style={styles.subheader}>Question</Text>
+						</TouchableOpacity>
+					</Animated.View>
 				</View>
 				<View style={styles.buttonContainer}>
 					<FlashButton 

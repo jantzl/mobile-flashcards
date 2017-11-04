@@ -42,20 +42,17 @@ export const styles = StyleSheet.create({
 		paddingRight: 10, 
 		fontSize: 22,
 	},
-	progres: {
-		justifyContent: 'flex-start', 
-		alignItems: 'flex-start',
-	},
-	/* FIXME need these? */
 	flipCard: {
 		width: 300, 
-		height: 200,
-		backfaceVisibility: 'hidden',
+		height: 300,
+		alignItems: 'center', 
+		justifyContent: 'center',
 		backgroundColor: white,
+		backfaceVisibility: 'hidden',
 	},
 	flipCardBack: {
 		backgroundColor: white,
-		top: 0, 
-		position: 'absolute',
+		position: 'absolute', 
+		top: 0,
 	},
 })
