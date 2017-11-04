@@ -20,7 +20,7 @@ class DeckListView extends Component {
 			<View>
 				{Object.keys(decks).map((key) =>{
 					const value = decks[key]
-					return (<DeckCard key={key} name={key} num_cards={value.questions.length} navigation={navigation} />)
+					return (<DeckCard key={key} name={value.title} num_cards={value.questions.length} navigation={navigation} />)
 				})}
 			</View>
 		)
