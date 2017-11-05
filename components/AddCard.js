@@ -4,6 +4,7 @@ import { View, Text, TextInput } from 'react-native'
 import FlashButton from './FlashButton'
 import { white, black } from '../utils/colors'
 import { styles } from '../utils/styles'
+import { addCard } from '../actions/'
 
 class AddCard extends Component {
 	state = {
@@ -11,9 +12,14 @@ class AddCard extends Component {
 		answer: null,
 	}
 
-	//FIXME
   submit = () => {
-    console.log('add card')
+		const { deckId, navigation } = this.props
+		const card = {
+			question: this.state.question,
+			answer: this.state.answer
+		}
+		this.props.dispatch(addCard(deckId, card))
+		navigation.goBack()
   }
 
   render () {
@@ -39,7 +45,7 @@ class AddCard extends Component {
             style={{backgroundColor: black, borderColor: black, marginTop: 40}}
             textStyle={{color: white}}
           >
-            FIXME Submit
+            Submit
           </FlashButton>
 				</View>
       </View>

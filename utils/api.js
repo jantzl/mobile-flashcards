@@ -6,23 +6,14 @@ export function getDecks() {
 	.then(formatDeckResults)
 }
 
-
-// FIXME not sure this is needed
-/*
-export function getDeck(title) {
-  return AsyncStorage.getItem(DECK_STORAGE_KEY)
-	.then(formatDeckResults)
-}
-*/
-
 //FIXME test
 export function saveDeckTitle(title) {
   return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
-    [title]: { title }, 
+    [title]: { title: title, questions: [] }, 
   }))
 }
 
-//FIXME test
+//FIXME - is overwriting array
 export function addCardToDeck(title, card) {
   return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
     [title]: {

@@ -3,16 +3,26 @@ import { View, Text, TextInput } from 'react-native'
 import FlashButton from './FlashButton'
 import { white, black } from '../utils/colors'
 import { styles } from '../utils/styles'
+import { addDeck } from '../actions/'
+import { connect } from 'react-redux'
 
-export default class AddDeck extends Component {
+class AddDeck extends Component {
 	state = {
 		text: null,
 	}
 
   submit = () => {
-    console.log('add deck')
+    const { navigation } = this.props
+    const newDeck = this.state.text
+
+    this.props.dispatch(addDeck(newDeck))
+
+		// FIXME reset input value
+		this.setState(() => {text: ''})
+    navigation.goBack()
   }
 
+	//FIXME want the input to clear the keyboard here
   render () {
     return (
       <View style={styles.container}> 
@@ -30,10 +40,12 @@ export default class AddDeck extends Component {
             style={{backgroundColor: black, borderColor: black, marginTop: 40}}
             textStyle={{color: white}}
           >
-            FIXME Submit
+            Submit
           </FlashButton>
 				</View>
       </View>
     )
   }
 }
+
+export default connect()(AddDeck)
