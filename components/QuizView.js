@@ -39,20 +39,32 @@ class QuizView extends Component {
 		})
 	}
 
-	correct = (increase) => {
+	resetCardFace = () => {
 		// if the back of the card is showing when you want to transition, 
 		// hide the face, then flip, then transition
 		if (this.value >= 90) {
 			this.state.backOpacity.setValue(0)
 			this.flip()
 		}
+	}
+
+	correct = (increase) => {
+		this.resetCardFace()
 		this.setState(() => ({
 			position: this.state.position + 1, 
 			score: this.state.score + increase,
 		}))
 	}
 
-	flip() {
+	restartQuiz = () => {
+		this.resetCardFace()
+		this.setState(() => ({
+			position: 0,
+			score: 0,
+		}))
+	}
+
+	flip = () => {
 		// NOTE: This looks like an overly complicated animation, but it is
 		// because the system I have tested on is Android and the backfaceVisbility 
 		// property does not seem to be well supported on Android, or at least the
@@ -92,7 +104,7 @@ class QuizView extends Component {
 	}
 
 	render () {
-		const { deck } = this.props
+		const { deck, navigation } = this.props
 		const { position, score, frontOpacity, backOpacity } = this.state
 		const numQuestions = deck.questions.length
 		const frontAnimatedStyle = {
@@ -116,6 +128,20 @@ class QuizView extends Component {
 							<Text style={styles.header}>
 								Great job studying! You got {percentCorrect}% correct
 							</Text>
+							<FlashButton 
+								onPress={this.restartQuiz}
+								style={{backgroundColor: black, borderColor: black}} 
+								textStyle={{color: white}}
+							> 
+								Restart Quiz
+							</FlashButton>
+							<FlashButton 
+								onPress={() => navigation.goBack()} 
+								style={{backgroundColor: white, borderColor: black}} 
+								textStyle={{color: black}}
+							> 
+								Back to Deck
+							</FlashButton>
 					</View>
 				</View>
 			)
@@ -131,13 +157,13 @@ class QuizView extends Component {
 				<View style={[styles.textContainer, {backgroundColor: gray}]}>
 					<Animated.View style={[styles.flipCard, frontAnimatedStyle, { opacity: frontOpacity}]}>
 						<Text style={styles.header}>{question.question}</Text>
-						<TouchableOpacity onPress={() => this.flip()}>
+						<TouchableOpacity onPress={this.flip}>
 							<Text style={[styles.subheader, styles.flipCardText]}>Answer</Text>
 						</TouchableOpacity>
 					</Animated.View>
 					<Animated.View style={[styles.flipCard, backAnimatedStyle, styles.flipCardBack, {opacity: backOpacity}]}>
 						<Text style={styles.header}>{question.answer}</Text>
-						<TouchableOpacity onPress={() => this.flip()}>
+						<TouchableOpacity onPress={this.flip}>
 							<Text style={[styles.subheader, styles.flipCardText]}>Question</Text>
 						</TouchableOpacity>
 					</Animated.View>
