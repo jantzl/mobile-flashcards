@@ -6,7 +6,6 @@ export function getDecks() {
 	.then(formatDeckResults)
 }
 
-//FIXME test
 export function saveDeckTitle(title) {
   return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
     [title]: { title: title, questions: [] }, 
