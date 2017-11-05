@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { white, black, gray } from './colors'
+import { white, black, gray, red } from './colors'
 
 export const styles = StyleSheet.create({
   container: {
@@ -43,8 +43,8 @@ export const styles = StyleSheet.create({
 		fontSize: 22,
 	},
 	flipCard: {
-		width: 300, 
-		height: 300,
+		width: 400, 
+		height: 400,
 		alignItems: 'center', 
 		justifyContent: 'center',
 		backgroundColor: white,
@@ -54,5 +54,14 @@ export const styles = StyleSheet.create({
 		backgroundColor: white,
 		position: 'absolute', 
 		top: 0,
+	},
+	flipCardText: {
+		color: red, 
+		padding: 10,
+		/*
+		borderColor: black, 
+		borderWidth: 1,
+		borderRadius: 5,
+		*/
 	},
 })

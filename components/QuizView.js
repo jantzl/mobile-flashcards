@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, Text, Button, StyleSheet, TouchableOpacity, Animated } from 'react-native'
 import FlashButton from './FlashButton'
-import { green, red, white } from '../utils/colors'
+import { green, red, white, gray, black } from '../utils/colors'
 import { styles } from '../utils/styles'
 
 class QuizView extends Component {
@@ -128,17 +128,17 @@ class QuizView extends Component {
 				<View> 
 					<Text style={{fontSize: 20}}>{position+1}/{numQuestions}</Text>
 				</View>
-				<View style={styles.textContainer}>
+				<View style={[styles.textContainer, {backgroundColor: gray}]}>
 					<Animated.View style={[styles.flipCard, frontAnimatedStyle, { opacity: frontOpacity}]}>
 						<Text style={styles.header}>{question.question}</Text>
 						<TouchableOpacity onPress={() => this.flip()}>
-							<Text style={styles.subheader}>Answer</Text>
+							<Text style={[styles.subheader, styles.flipCardText]}>Answer</Text>
 						</TouchableOpacity>
 					</Animated.View>
 					<Animated.View style={[styles.flipCard, backAnimatedStyle, styles.flipCardBack, {opacity: backOpacity}]}>
 						<Text style={styles.header}>{question.answer}</Text>
 						<TouchableOpacity onPress={() => this.flip()}>
-							<Text style={styles.subheader}>Question</Text>
+							<Text style={[styles.subheader, styles.flipCardText]}>Question</Text>
 						</TouchableOpacity>
 					</Animated.View>
 				</View>
