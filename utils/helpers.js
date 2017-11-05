@@ -34,7 +34,6 @@ export function getInitDecks() {
 
 // ---- NOTIFICATION FUNCTIONS ----
 
-//FIXME - use this
 export function clearLocalNotification () {
   return AsyncStorage.removeItem(NOTIFICATION_KEY)
     .then(Notifications.cancelAllScheduledNotificationsAsync)

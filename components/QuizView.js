@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, Text, Button, StyleSheet, TouchableOpacity, Animated } from 'react-native'
 import FlashButton from './FlashButton'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 import { green, red, white, gray, black } from '../utils/colors'
 import { styles } from '../utils/styles'
 
@@ -121,7 +122,12 @@ class QuizView extends Component {
 		}
 
 		if (position >= numQuestions) {
+			// calculate score
 			const percentCorrect = Math.round((score / numQuestions)*100)
+			// clear notifications & reschedule for tomorrow
+			clearLocalNotification()
+			.then(setLocalNotification)
+			// display final screen
 			return (
 				<View style={styles.container}>
 					<View style={styles.textContainer}>
