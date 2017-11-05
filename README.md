@@ -1,4 +1,5 @@
 This project was built using [Create React Native App](https://github.com/react-community/create-react-native-app). It is meant to be built/run on your local system and accessed on your device using the Expo app, as described below.
+It was built and tested on an Android device. It may run on iOS, but has not been tested there. 
 
 ### `yarn start`
 
