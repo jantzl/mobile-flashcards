@@ -10,6 +10,7 @@ import AddDeck from './components/AddDeck'
 import AddCard from './components/AddCard'
 import QuizView from './components/QuizView'
 import reducer from './reducers'
+import { setLocalNotification } from './utils/helpers'
 import { white, black } from './utils/colors'
 
 const Tabs = TabNavigator({
@@ -74,12 +75,9 @@ const MainNavigator = StackNavigator({
 })
 
 export default class App extends React.Component {
-	//FIXME - notifications
-	/* add notification here 
 	componentDidMount () {
 		setLocalNotification()
 	}
-	 * */
   render() {
     return (
 			<Provider store={createStore(reducer)}>

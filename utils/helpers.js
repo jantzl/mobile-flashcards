@@ -2,6 +2,8 @@ import React from 'react'
 import { AsyncStorage } from 'react-native'
 import { Notifications, Permissions } from 'expo'
 
+const NOTIFICATION_KEY = 'LaurensFlashCards:notifications'
+
 // ---- DECK INIT FUNCTION ----
 export function getInitDecks() {
 	return {
@@ -32,13 +34,12 @@ export function getInitDecks() {
 
 // ---- NOTIFICATION FUNCTIONS ----
 
-//FIXME - test
+//FIXME - use this
 export function clearLocalNotification () {
   return AsyncStorage.removeItem(NOTIFICATION_KEY)
     .then(Notifications.cancelAllScheduledNotificationsAsync)
 }
 
-//FIXME - test
 function createNotification () {
   return {
     title: 'Take a quiz!',
@@ -55,7 +56,6 @@ function createNotification () {
   }
 }
 
-//FIXME - test
 export function setLocalNotification () {
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
