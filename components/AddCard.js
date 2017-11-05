@@ -45,7 +45,7 @@ class AddCard extends Component {
             style={{backgroundColor: black, borderColor: black, marginTop: 40}}
             textStyle={{color: white}}
           >
-            Submit
+            Create Card
           </FlashButton>
 				</View>
       </View>
