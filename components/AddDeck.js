@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput } from 'react-native'
+import { View, KeyboardAvoidingView, Text, TextInput } from 'react-native'
 import FlashButton from './FlashButton'
 import { white, black } from '../utils/colors'
 import { styles } from '../utils/styles'
@@ -17,16 +17,14 @@ class AddDeck extends Component {
 
     this.props.dispatch(addDeck(newDeck))
 
-		// FIXME reset input value
-		this.setState(() => {text: ''})
+		this.setState({text: null})
     navigation.goBack()
   }
 
-	//FIXME want the input to clear the keyboard here
   render () {
     return (
       <View style={styles.container}> 
-				<View style={styles.textContainer}>
+				<KeyboardAvoidingView behavior="padding" style={styles.textContainer}>
 					<Text style={styles.header}>What is the title of your new deck?</Text>
 					<TextInput 
 						placeholder='Deck Title'
@@ -42,7 +40,7 @@ class AddDeck extends Component {
           >
             Submit
           </FlashButton>
-				</View>
+				</KeyboardAvoidingView>
       </View>
     )
   }

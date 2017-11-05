@@ -12,11 +12,15 @@ export function saveDeckTitle(title) {
   }))
 }
 
-//FIXME - is overwriting array
 export function addCardToDeck(title, card) {
-  return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
-    [title]: {
-			questions: [ card ], 
-		}
-  }))
+  AsyncStorage.getItem(DECK_STORAGE_KEY)
+	.then((result) => {
+		const oldVal = JSON.parse(result)
+		const newQs = [...oldVal[title].questions, card]
+		return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
+			[title]: {
+				questions: newQs
+			}
+		}))
+	})
 }
