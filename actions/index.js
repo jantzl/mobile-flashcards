@@ -19,7 +19,6 @@ export function addDeck (deck) {
 }
 
 export function addCard (deckId, card) {
-	//FIXME - this is overwriting the array currently
 	addCardToDeck(deckId, card)
 	return {
 		type: ADD_CARD, 
