@@ -26,6 +26,11 @@ export const styles = StyleSheet.create({
     fontSize: 22,
     color: gray,
   },
+  error: {
+    textAlign: 'center',
+    fontSize: 22,
+    color: red,
+  },
   buttonContainer: {
     justifyContent: 'flex-end',
     alignItems: 'center',

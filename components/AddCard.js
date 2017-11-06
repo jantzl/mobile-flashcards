@@ -10,22 +10,34 @@ class AddCard extends Component {
 	state = {
 		question: null,
 		answer: null,
+		error: null,
 	}
 
   submit = () => {
 		const { deckId, navigation } = this.props
-		const card = {
-			question: this.state.question,
-			answer: this.state.answer
+
+		if ((this.state.question==null) || (this.state.answer==null)) {
+			this.setState({error: 'Please enter both a question and answer.'})
+		} else {
+			const card = {
+				question: this.state.question,
+				answer: this.state.answer,
+				error: null,
+			}
+			this.props.dispatch(addCard(deckId, card))
+			navigation.goBack()
 		}
-		this.props.dispatch(addCard(deckId, card))
-		navigation.goBack()
   }
 
   render () {
     return (
       <View style={styles.container}> 
 				<View style={styles.addCardContainer}>
+			    {this.state.error &&
+            <Text style={styles.error}>
+              {this.state.error}
+            </Text>
+          }
 					<TextInput 
 						placeholder='Question'
 						style={styles.input}

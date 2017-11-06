@@ -9,22 +9,32 @@ import { connect } from 'react-redux'
 class AddDeck extends Component {
 	state = {
 		text: null,
+		error: null,
 	}
 
   submit = () => {
     const { navigation } = this.props
     const newDeck = this.state.text
 
-    this.props.dispatch(addDeck(newDeck))
+		if (this.state.text == null) {
+			this.setState({error: 'Please input a name for the deck'})
+		} else {
+			this.props.dispatch(addDeck(newDeck))
 
-		this.setState({text: null})
-		navigation.navigate('DeckView', { deckId: newDeck })
+			this.setState({text: null, error: null})
+			navigation.navigate('DeckView', { deckId: newDeck })
+		}
   }
 
   render () {
     return (
       <View style={styles.container}> 
 				<KeyboardAvoidingView behavior="padding" style={styles.textContainer}>
+					{this.state.error && 
+						<Text style={styles.error}>
+							{this.state.error}
+						</Text>
+					}
 					<Text style={styles.header}>What is the title of your new deck?</Text>
 					<TextInput 
 						placeholder='Deck Title'
