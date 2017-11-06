@@ -18,7 +18,7 @@ class AddDeck extends Component {
     this.props.dispatch(addDeck(newDeck))
 
 		this.setState({text: null})
-    navigation.goBack()
+		navigation.navigate('DeckView', { deckId: newDeck })
   }
 
   render () {
